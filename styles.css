@@ -1,0 +1,304 @@
+/* VI — Leonida · fan concept. Identità «Loading Screen Pulp»: illustrazione a china, tramonto saturo, titoli Pricedown in SVG. */
+@font-face { font-family: "Archivo"; src: url(assets/fonts/archivo-400.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Archivo"; src: url(assets/fonts/archivo-600.woff2) format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Archivo X"; src: url(assets/fonts/archivo-exp-700.woff2) format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Archivo X"; src: url(assets/fonts/archivo-exp-800i.woff2) format("woff2"); font-weight: 800; font-style: italic; font-display: swap; }
+
+:root {
+  --void: #0B0710;
+  --plum: #2A0B3D;
+  --magenta: #FF2E88;
+  --tang: #FF8A1F;
+  --cream: #FFF1D6;
+  --yellow: #FFC726;
+  --ink: #120814;
+  --gut: clamp(16px, 4vw, 56px);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { background: var(--void); }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+body { margin: 0; background: var(--void); color: var(--cream); font: 400 1.0625rem/1.55 "Archivo", system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+body.is-loading { overflow: hidden; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2 { margin: 0; font-weight: 400; }
+.skip { position: fixed; left: 12px; top: -60px; z-index: 100; background: var(--yellow); color: var(--ink); padding: 10px 14px; font-weight: 600; }
+.skip:focus { top: 12px; }
+:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+/* ---------- titoli Pricedown (tracciati SVG) ---------- */
+.pd { display: block; width: 100%; height: auto; overflow: visible; }
+.pd__ext { fill: var(--pd-ext, var(--ink)); stroke: var(--pd-ext, var(--ink)); stroke-linejoin: round; }
+.pd__line { fill: none; stroke: var(--ink); stroke-linejoin: round; }
+.pd__s1 { stop-color: var(--pd-a, #FFE66B); }
+.pd__s2 { stop-color: var(--pd-b, #FFB020); }
+.pd__s3 { stop-color: var(--pd-c, #FF5A2E); }
+.pd__g { transform-box: fill-box; transform-origin: 50% 100%; }
+
+.pd--hero { --pd-a: #FFF3B0; --pd-b: #FFC23A; --pd-c: #FF4F7B; --pd-ext: #2A0B3D; }
+.pd--nav { width: 46px; --pd-a: var(--cream); --pd-b: var(--cream); --pd-c: #FFC9DD; --pd-ext: var(--magenta); }
+.pd--welcome { --pd-a: #FFF3B0; --pd-b: #FF9BC4; --pd-c: #FF2E88; --pd-ext: #5B1A86; }
+.pd--beach { --pd-a: #FFFBD0; --pd-b: #FFE14D; --pd-c: #FFB000; --pd-ext: #FF2E88; }
+.pd--swamp { --pd-a: #F7EBC4; --pd-b: #E3C46A; --pd-c: #B98B2C; --pd-ext: #2D3A14; }
+.pd--night { --pd-a: #FFD1EC; --pd-b: #FF4FB1; --pd-c: #C21C7A; --pd-ext: #18E0FF; }
+.pd--keys { --pd-a: #FFFFFF; --pd-b: #FFD8B5; --pd-c: #FF8A6B; --pd-ext: #1E7E8C; }
+.pd--crew { --pd-a: #FFF3B0; --pd-b: #FFC23A; --pd-c: #FF8A1F; --pd-ext: var(--magenta); }
+.pd--fin { --pd-a: #FFF3B0; --pd-b: #FFC23A; --pd-c: #FF4F7B; --pd-ext: #2A0B3D; }
+
+/* ---------- bottoni ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 14px 26px; background: var(--yellow); color: var(--ink); text-decoration: none; font: 700 1rem/1 "Archivo X", sans-serif; text-transform: uppercase; letter-spacing: .02em; border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--ink); transform: skewX(-8deg); transition: transform .35s var(--ease), box-shadow .35s var(--ease), background-color .2s; }
+.btn:hover { transform: skewX(-8deg) translate(-3px, -3px); box-shadow: 8px 8px 0 var(--magenta); background: #FFD54F; }
+.btn:active { transform: skewX(-8deg) translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+.btn--sm { min-height: 44px; padding: 10px 18px; font-size: .875rem; box-shadow: 4px 4px 0 var(--ink); }
+
+/* ---------- caricamento ---------- */
+.loader { position: fixed; inset: 0; z-index: 60; pointer-events: none; }
+.loader__svg { position: absolute; inset: 0; display: block; }
+.loader__black { fill: var(--void); }
+.loader__edge path { fill: none; stroke: var(--cream); stroke-width: 5; vector-effect: non-scaling-stroke; }
+.loader__meta { position: absolute; left: 0; right: 0; bottom: 7vh; display: flex; justify-content: center; gap: 14px; font: 700 .9rem/1 "Archivo X", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); }
+.loader__pct { color: var(--yellow); font-variant-numeric: tabular-nums; min-width: 3.2ch; }
+.is-ready .loader { display: none; }
+
+/* ---------- nav ---------- */
+.nav { position: fixed; z-index: 50; top: 0; left: 0; right: 0; display: flex; align-items: center; gap: 28px; padding: 18px var(--gut); pointer-events: none; }
+.nav > * { pointer-events: auto; }
+.nav::before { content: ""; position: absolute; inset: 0 0 -40px; background: linear-gradient(rgba(11,7,16,.55), rgba(11,7,16,0)); pointer-events: none; z-index: -1; }
+.nav__mark { display: block; padding: 4px; }
+.nav__links { display: flex; gap: 26px; margin-left: auto; }
+.nav__links a { font: 700 .875rem/1 "Archivo X", sans-serif; text-transform: uppercase; letter-spacing: .08em; text-decoration: none; padding: 12px 2px; position: relative; text-shadow: 0 1px 8px rgba(0,0,0,.45); }
+.nav__links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 3px; background: var(--yellow); transform: scaleX(0); transform-origin: left; transition: transform .4s var(--ease); }
+.nav__links a:hover::after { transform: scaleX(1); }
+
+/* ---------- livelli condivisi ---------- */
+.layer { position: absolute; inset: 0; will-change: transform; }
+.layer img, .layer picture { width: 100%; height: 100%; }
+.layer img { object-fit: cover; }
+
+/* ---------- HERO ---------- */
+.hero { position: relative; height: 210vh; }
+.hero__stage { position: sticky; top: 0; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; background: #3a1050; }
+.hero .layer--sky { inset: -6% -4% -2%; }
+.hero .layer--city { inset: auto -4% -3% -4%; height: 78%; }
+.hero .layer--city img { object-position: 50% 100%; }
+.hero .layer--front { inset: -4% -6% -4%; }
+.hero .layer--front img { object-position: 50% 100%; }
+.hero .layer--title { inset: auto 0 auto 0; top: 13%; display: flex; justify-content: center; }
+.hero__h1 { width: min(90vw, 70vh * 2.2, 1500px); }
+.hero .layer--char { inset: auto 0 -37% 0; height: 123%; display: flex; justify-content: center; }
+.hero .layer--char img { width: auto; height: 100%; object-fit: contain; object-position: 50% 100%; }
+.hero__ui { position: absolute; right: var(--gut); bottom: 28px; z-index: 6; pointer-events: none; }
+.hero__kicker { display: flex; flex-direction: column; gap: 6px; font: 700 1rem/1 "Archivo X", sans-serif; text-transform: uppercase; letter-spacing: .12em; text-shadow: 0 2px 10px rgba(0,0,0,.6); }
+.hero__kicker span + span { color: var(--yellow); }
+.hero__scroll { padding: 16px 24px; background: rgba(11, 7, 16, .82); border: 2px solid rgba(255,241,214,.18); backdrop-filter: blur(6px); transform: skewX(-6deg); font: 700 1rem/1 "Archivo X", sans-serif; text-transform: uppercase; letter-spacing: .12em; color: var(--cream); }
+.hero__scroll > span { display: block; transform: skewX(6deg); }
+.hero__scroll-line { width: 64px; height: 3px; background: var(--cream); transform-origin: left; animation: scrollcue 2.2s var(--ease) infinite; }
+@keyframes scrollcue { 0% { transform: scaleX(0); } 55% { transform: scaleX(1); transform-origin: left; } 56% { transform-origin: right; } 100% { transform: scaleX(0); transform-origin: right; } }
+
+/* ---------- WELCOME ---------- */
+.welcome { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(24px, 5vw, 96px); align-items: center; padding: clamp(96px, 14vh, 160px) var(--gut) clamp(80px, 12vh, 140px); background: var(--void); overflow: hidden; }
+.welcome::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 70% at 18% 60%, rgba(255,46,136,.18), transparent 70%); pointer-events: none; }
+.welcome__art { position: relative; aspect-ratio: 4 / 4.6; max-height: 86vh; }
+.slant { position: absolute; inset: 22% 4% 0 6%; clip-path: polygon(16% 0, 100% 0, 84% 100%, 0 100%); }
+.slant--pink { background: radial-gradient(circle at 1px 1px, rgba(18,8,20,.28) 1.4px, transparent 1.6px) 0 0 / 9px 9px, linear-gradient(160deg, #FF5FA8 0%, #FF2E88 45%, #7A1FD1 100%); }
+/* il personaggio sta DENTRO la sagoma inclinata, che continua verso l'alto: la testa esce dal marco, il taglio in basso coincide con il bordo */
+.welcome__clip { position: absolute; inset: 0 4% 0 6%; clip-path: polygon(20.5% 0, 104.5% 0, 84% 100%, 0 100%); } /* = la cornice inclinata, prolungata solo verso l'alto */
+.welcome__char { position: absolute; left: 0; right: 0; margin: 0 auto; bottom: -14%; height: 112%; width: auto; max-width: none; }
+.welcome__copy { position: relative; max-width: 620px; display: grid; gap: 22px; justify-items: start; }
+.welcome__h { width: 100%; }
+.lede { font: 800 italic clamp(1.35rem, 2.1vw, 1.9rem)/1.2 "Archivo X", sans-serif; color: var(--yellow); }
+.welcome__copy p:not(.lede) { color: #E9DCCB; max-width: 52ch; }
+.welcome__copy .btn { margin-top: 8px; }
+
+/* ---------- SCENE ---------- */
+.scene { position: relative; height: 230vh; }
+.scene__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: var(--void); }
+.scene__bg { position: absolute; inset: -4%; will-change: transform, clip-path; }
+.scene__bg img, .scene__bg picture { width: 100%; height: 100%; object-fit: cover; }
+.scene__title { position: absolute; left: 50%; top: 14%; width: min(90vw, 1500px); transform: translateX(-50%); z-index: 2; }
+.scene__char { position: absolute; bottom: -12%; height: 96%; width: auto; max-width: none; z-index: 3; will-change: transform; }
+.scene__card { position: absolute; z-index: 4; bottom: 7vh; width: min(380px, 34vw); padding: 22px 24px 24px; background: rgba(11, 7, 16, .82); border: 2px solid rgba(255,241,214,.18); backdrop-filter: blur(6px); display: grid; gap: 10px; transform: skewX(-6deg); }
+.scene__card > * { transform: skewX(6deg); }
+.scene__no { font: 700 .875rem/1 "Archivo X", sans-serif; letter-spacing: .14em; color: var(--yellow); }
+.scene__line { font: 800 italic 1.3rem/1.2 "Archivo X", sans-serif; }
+.scene__who { color: #E2D6C6; }
+.scene__who b { display: block; color: var(--cream); font: 700 1rem/1.3 "Archivo X", sans-serif; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
+
+.scene--beach .scene__char { --hw: 30.5vh; left: calc(64% - var(--hw)); } /* --hw = metà larghezza del ritratto (altezza 96vh × proporzione / 2): GSAP cancella translate */
+.scene--beach .scene__card { left: var(--gut); }
+.scene--swamp .scene__char { --hw: 28.3vh; left: calc(36% - var(--hw)); scale: -1 1; }
+.scene--swamp .scene__card { right: var(--gut); }
+.scene--night .scene__char { --hw: 37.9vh; left: calc(33% - var(--hw)); }
+.scene--night .scene__card { right: var(--gut); }
+.scene--night .scene__title { top: 12%; filter: drop-shadow(0 0 18px rgba(255, 46, 136, .55)) drop-shadow(0 0 40px rgba(24, 224, 255, .3)); }
+.scene--keys .scene__char { --hw: 30.6vh; left: calc(63% - var(--hw)); }
+.scene--keys .scene__card { left: var(--gut); }
+.scene__slice { position: absolute; inset: 0; will-change: transform; }
+.scene__slice img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- CREW: pannelli inclinati a fisarmonica ---------- */
+.crew { position: relative; padding: clamp(96px, 14vh, 150px) var(--gut) clamp(90px, 12vh, 140px); background: linear-gradient(180deg, var(--void) 0%, #1A0826 55%, var(--plum) 100%); overflow: hidden; }
+.crew::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 1px 1px, rgba(255,241,214,.07) 1.2px, transparent 1.5px) 0 0 / 12px 12px; pointer-events: none; }
+.crew__head { position: relative; display: grid; gap: 14px; max-width: 760px; margin: 0 auto clamp(40px, 6vh, 70px); text-align: center; justify-items: center; }
+.crew__h { width: min(520px, 76vw); }
+.crew__head p { color: #E2D6C6; }
+.crew__list { --sk: 70px; position: relative; list-style: none; margin: 0 auto; padding: 0 calc(var(--sk) / 2); display: flex; height: min(76vh, 780px); max-width: 1560px; }
+.card { position: relative; flex: 1 1 0; min-width: 0; margin: 0 calc(var(--sk) / -2 + 6px); cursor: pointer; outline: none;
+  clip-path: polygon(var(--sk) 0, 100% 0, calc(100% - var(--sk)) 100%, 0 100%);
+  transition: flex-grow .8s var(--ease); --mx: 0px; --my: 0px; }
+.card.is-live { flex-grow: 3.4; }
+.card__frame { position: absolute; inset: 22% 0 0; overflow: hidden; background: var(--tint); }
+.card__frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,7,16,.1) 30%, rgba(11,7,16,.86) 100%); }
+.card__frame img { position: absolute; inset: -6%; width: 112%; height: 112%; max-width: none; object-fit: cover; transform: translate(var(--mx), var(--my)) scale(1.15); filter: grayscale(.75) brightness(.55); transition: transform 1s var(--ease), filter .7s var(--ease); }
+.card__char { position: absolute; left: 50%; bottom: 0; height: 74%; width: auto; max-width: none; transform: translateX(-50%) scale(1); transform-origin: 50% 100%; transition: transform .9s var(--ease), filter .7s var(--ease), height .9s var(--ease); filter: grayscale(.6) brightness(.6); pointer-events: none; }
+.card__name { position: absolute; left: calc(var(--sk) * .2); right: calc(var(--sk) * .9); bottom: 22px; display: grid; gap: 4px; padding-left: 18px; }
+.card__no { font: 700 .875rem/1 "Archivo X", sans-serif; letter-spacing: .14em; color: var(--yellow); }
+.card__name b { font: 800 italic clamp(1rem, 1.5vw, 1.6rem)/1.05 "Archivo X", sans-serif; text-transform: uppercase; white-space: nowrap; }
+.card__name span:last-child { font-size: 1rem; color: #E2D6C6; white-space: nowrap; opacity: 0; transform: translateY(10px); transition: opacity .4s, transform .5s var(--ease); }
+.card:not(.is-live) .card__name b { opacity: 0; }
+.card:not(.is-live) .card__name { left: 50%; translate: -50% 0; padding-left: 0; right: auto; }
+.card:not(.is-live) .card__no { font-size: 1.25rem; }
+.card.is-live .card__frame img { transform: translate(var(--mx), var(--my)) scale(1); filter: none; }
+.card.is-live .card__char { height: 100%; filter: drop-shadow(14px 10px 0 rgba(11,7,16,.5)); transform: translateX(-50%) translateX(var(--mx)); }
+.card.is-live .card__name span:last-child { opacity: 1; transform: none; transition-delay: .25s; }
+.card:focus-visible .card__name b { outline: 3px solid var(--yellow); outline-offset: 4px; }
+
+/* ---------- FINALE ---------- */
+.finale { position: relative; height: 190vh; }
+.finale__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: #3a1050; }
+.finale .layer--sky { inset: -4%; }
+.finale .layer--city { inset: auto -3% 20vw; height: 62%; }
+.finale .layer--city img { object-position: 50% 100%; }
+.finale__title { position: absolute; left: 50%; top: 12%; width: min(88vw, 1400px); transform: translateX(-50%); z-index: 2; }
+.finale__street { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; }
+.finale__street img { width: 100%; height: auto; }
+.finale__car { --cw: min(66vw, 92vh * 2, 1100px); position: absolute; z-index: 3; left: calc(65% - var(--cw) / 2); bottom: 2.4vw; width: var(--cw); height: auto; max-width: none; will-change: transform; filter: drop-shadow(0 14px 6px rgba(20, 0, 30, .55)); }
+.finale__smoke { position: absolute; z-index: 3; bottom: 3vw; width: 22vw; height: 12vw; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,241,214,.85), rgba(255,241,214,0)); opacity: 0; pointer-events: none; }
+.finale__copy { position: absolute; z-index: 4; left: var(--gut); bottom: 2.4vw; width: min(330px, 26vw); display: grid; gap: 14px; justify-items: start; padding: 22px 24px 26px; background: rgba(11, 7, 16, .82); border: 2px solid rgba(255,241,214,.18); backdrop-filter: blur(6px); }
+.finale__copy p:not(.lede) { color: #E2D6C6; }
+
+/* ---------- FOOTER: una riga ---------- */
+.foot { display: flex; justify-content: space-between; gap: 16px; padding: 18px var(--gut); background: var(--void); font: 700 .875rem/1.3 "Archivo X", sans-serif; text-transform: uppercase; letter-spacing: .1em; color: #B9A9C2; }
+.foot p:first-child { color: var(--cream); }
+
+/* ---------- telefono (rifinitura dopo il desktop) ---------- */
+@media (max-width: 900px) {
+  .nav__links { display: none; }
+  .nav .btn--sm { margin-left: auto; }
+  .welcome { grid-template-columns: 1fr; }
+  .welcome__art { max-width: 520px; width: 100%; margin: 0 auto; }
+  .crew__list { --sk: 34px; height: 70vh; }
+  .card.is-live { flex-grow: 5; }
+  .card__name b { font-size: 1rem; }
+  .scene__card, .finale__copy { width: auto; left: var(--gut); right: var(--gut); }
+}
+@media (max-width: 700px) {
+  .hero .layer--city { height: 74%; }
+  .hero .layer--title { top: 14%; }
+  .hero .layer--char { height: 66%; }
+  .scene__title { top: 11%; width: 92vw; }
+  .scene__char { height: 62%; }
+  .scene__char { left: calc(50% - var(--hw) * 62 / 96) !important; }
+  .scene__card { bottom: 3vh; padding: 16px 18px 18px; transform: none; }
+  .scene__card > * { transform: none; }
+  .scene__line { font-size: 1.1rem; }
+  .finale__title { top: 13%; width: 92vw; }
+  .finale__car { --cw: 118vw; bottom: 26%; }
+  .finale__copy { top: auto; bottom: 3vh; translate: none; }
+}
+
+/* ---------- movimento ridotto ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .loader { display: none; }
+  body.is-loading { overflow: auto; }
+  .scene, .finale, .hero { height: auto; }
+  .scene__stage, .finale__stage { position: relative; }
+  .hero__close, .scene__bands { display: none; }
+  .hero__scroll-line { animation: none; }
+  .btn, .card, .card__frame img, .card__char { transition: none; }
+}
+
+/* ---------- hover della sezione nera: profondità + luce che segue il mouse ---------- */
+.welcome__art { --lx: 50%; --ly: 40%; --lo: 0; }
+.slant--pink::after { content: ""; position: absolute; inset: 0; background: radial-gradient(38% 30% at var(--lx) var(--ly), rgba(255, 241, 214, .55), rgba(24, 224, 255, .18) 45%, transparent 70%); mix-blend-mode: screen; opacity: var(--lo); transition: opacity .5s var(--ease); pointer-events: none; }
+.welcome__art:hover { --lo: 1; }
+
+/* ---------- 2 · uscita dall'hero: il VI si richiude ---------- */
+.hero__close { position: absolute; inset: 0; z-index: 7; pointer-events: none; visibility: hidden; }
+.hero__close-black { fill: var(--void); }
+
+/* ---------- 1 · HUD: minimappa + stelle ---------- */
+.hud { position: fixed; z-index: 40; inset: 0; pointer-events: none; opacity: 0; transition: opacity .6s var(--ease); }
+.hud.is-on { opacity: 1; }
+.hud__map { position: absolute; left: var(--gut); bottom: 22px; width: 150px; display: grid; justify-items: center; gap: 8px; }
+.hud__svg { width: 150px; height: 150px; overflow: hidden; filter: drop-shadow(0 6px 14px rgba(0,0,0,.45)); }
+.hud__ring { fill: none; stroke: var(--ink); stroke-width: 8; }
+.hud__ring2 { fill: none; stroke: var(--cream); stroke-width: 3.5; }
+.hud__svg .hud__ring + g { }
+.hud__sea { fill: #127C93; }
+.hud__land { fill: #5E9C6A; stroke: #F3E3B5; stroke-width: 3; }
+.hud__lake { fill: #127C93; }
+.hud__swamp { fill: #46704A; }
+.hud__keys ellipse { fill: #5E9C6A; stroke: #F3E3B5; stroke-width: 2; }
+.hud__road { fill: none; stroke: #F3E3B5; stroke-width: 4; stroke-linecap: round; opacity: .85; }
+.hud__poi { stroke: var(--ink); stroke-width: 3; }
+.hud__poi--vc { fill: var(--yellow); } .hud__poi--beach { fill: #22C7E0; } .hud__poi--swamp { fill: #C9A227; } .hud__poi--night { fill: var(--magenta); } .hud__poi--keys { fill: #FF8A3D; }
+.hud__blip { fill: #fff; stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; }
+.hud__svg::after { content: ""; }
+.hud__place { padding: 6px 12px; background: rgba(11,7,16,.86); border: 2px solid rgba(255,241,214,.18); font: 700 .875rem/1 "Archivo X", sans-serif; text-transform: uppercase; letter-spacing: .1em; color: var(--cream); white-space: nowrap; transform: skewX(-6deg); }
+.hud__stars { position: absolute; right: var(--gut); top: 86px; display: flex; gap: 6px; }
+.hud__stars i { width: 30px; height: 30px; background: rgba(11,7,16,.55); clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 92%, 50% 71%, 21% 92%, 32% 57%, 2% 35%, 39% 35%); position: relative; }
+.hud__stars i::after { content: ""; position: absolute; inset: 3px; background: rgba(255,241,214,.22); clip-path: inherit; }
+.hud__stars i.on { background: var(--ink); }
+.hud__stars i.on::after { background: #fff; }
+.hud__stars.is-hot i.on::after { animation: starblink .5s steps(1) infinite; }
+@keyframes starblink { 50% { background: var(--yellow); } }
+
+@media (max-width: 700px) {
+  .hud__map { width: 104px; bottom: 14px; }
+  .hud__svg { width: 104px; height: 104px; }
+  .hud__stars { top: 74px; }
+  .hud__stars i { width: 22px; height: 22px; }
+}
+@media (prefers-reduced-motion: reduce) { .hud { opacity: 1; } }
+
+/* spazio per la minimappa in basso a sinistra (desktop) */
+@media (min-width: 701px) {
+  .scene--beach .scene__card, .scene--keys .scene__card { bottom: 220px; }
+  .finale__copy { left: calc(var(--gut) + 176px); }
+}
+
+/* ---------- telefono: rifinitura (dopo l'ok del desktop) ---------- */
+@media (max-width: 700px) {
+  /* hero: titolo largo in alto, protagonista grande dal petto in su */
+  .hero .layer--title { top: 12%; }
+  .hero__h1 { width: 96vw; }
+  .hero .layer--char { inset: auto -20% -16% -20%; height: 70%; }
+  .hero__ui { right: 16px; bottom: 18px; }
+  /* HUD: solo le stelle (la minimappa coprirebbe le schede) */
+  .hud__map { display: none; }
+  /* la banda: carosello orizzontale, un personaggio per volta, tutti già aperti */
+  .crew__list { --sk: 26px; height: auto; overflow-x: auto; scroll-snap-type: x mandatory; gap: 10px; padding: 0 11vw 8px; margin: 0 calc(var(--gut) * -1); scrollbar-width: none; }
+  .crew__list::-webkit-scrollbar { display: none; }
+  .card, .card.is-live { flex: 0 0 78vw; height: 64vh; min-height: 460px; margin: 0; scroll-snap-align: center; }
+  .card .card__frame img { filter: none; transform: none; }
+  .card .card__char { height: 100%; filter: none; transform: translateX(-50%); }
+  .card:not(.is-live) .card__name, .card .card__name { left: calc(var(--sk) * .2); right: var(--sk); translate: none; padding-left: 14px; }
+  .card:not(.is-live) .card__name b, .card .card__name span:last-child { opacity: 1; transform: none; }
+  .card__name b { font-size: 1.25rem; }
+  /* finale: l'auto sulla strada, il box sopra l'auto */
+  .finale__car { bottom: 2vw; }
+  .finale__copy { left: var(--gut); right: var(--gut); bottom: calc(118vw * .49 + 24px); width: auto; }
+}
+@media (max-width: 700px) { .finale__title { top: 16%; } }
+
+/* revisione: HUD che non copre i testi */
+.nav::before { transition: background .4s var(--ease); }
+.nav.is-solid::before { inset: 0; background: rgba(11, 7, 16, .9); border-bottom: 2px solid rgba(255,241,214,.1); }
+.hud__stars { padding: 7px 10px; background: rgba(11, 7, 16, .78); border: 2px solid rgba(255,241,214,.14); transform: skewX(-6deg); }
+.hud__map { transition: opacity .4s var(--ease), transform .4s var(--ease); }
+.hud.hud--mapoff .hud__map { opacity: 0; transform: translateY(20px); }
